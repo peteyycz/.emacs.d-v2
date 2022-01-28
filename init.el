@@ -1,6 +1,9 @@
 ;; Thanks, but no thanks
 (setq inhibit-startup-message t)
 
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
 ;; Set up plugin archives
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -33,8 +36,8 @@
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 (setq use-dialog-box nil) ;; Disable dialog boxes since they weren't working in Mac OSX
 
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+(set-frame-parameter (selected-frame) 'alpha '(95 . 95))
+(add-to-list 'default-frame-alist '(alpha . (95 . 95)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
  
@@ -65,3 +68,11 @@
 
 (use-package ivy
   :config (ivy-mode 1))
+
+(column-number-mode 1)
+(display-line-numbers-mode 1)
+(dolist
+    (mode '(org-mode-hook
+            term-mode-hook
+            eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
